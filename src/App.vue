@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-    <p>{{ response }}</p>
+    <pre>{{ response }}</pre>
   </div>
 </template>
 
 <script>
-import { get } from './js/api'
+import { post } from './js/api'
 
 export default {
   name: 'app',
@@ -15,19 +15,33 @@ export default {
     }
   },
   async mounted () {
-    let response = await get()
-    this.response = response.data
+    let response = await post({
+      body: 'abc'
+    })
+    let json = await response.json()
+    this.response = json
   }
 }
 </script>
 
 <style>
+body {
+  background-color: #181919;
+}
+
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  background-color: #4c4d4f;
+  margin: auto;
+  width: 70%;
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 3px;
+  box-shadow: 0 3px 9px rgba(0, 0, 0, .2);
+}
+
+#app > pre {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #f9f9f9;
 }
 </style>
